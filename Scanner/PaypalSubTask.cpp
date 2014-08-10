@@ -7,9 +7,8 @@ PaypalSubTask::PaypalSubTask(tagAccount* account, tagHttp* http)
 {
 	CString sHttp;
 	sHttp.Format("http://%s:%d", m_http->mIp, m_http->mPort);
-	//m_hInternet = InternetOpen("Mozilla/5.0 (Windows NT 5.1) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/15.0.849.0 Safari/535.1", INTERNET_OPEN_TYPE_PROXY, sHttp.GetBuffer(), NULL, 0);
-	m_hInternet = InternetOpen("Mozilla/5.0 (Windows NT 5.1) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/15.0.849.0 Safari/535.1", INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, 0);
-
+	m_hInternet = InternetOpen("Mozilla/5.0 (Windows NT 5.1) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/15.0.849.0 Safari/535.1", INTERNET_OPEN_TYPE_PROXY, sHttp.GetBuffer(), NULL, 0);
+	//m_hInternet = InternetOpen("Mozilla/5.0 (Windows NT 5.1) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/15.0.849.0 Safari/535.1", INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, 0);
 }
 
 
@@ -23,7 +22,12 @@ void PaypalSubTask::run()
 	BOOL ret;
 	OutputDebugString("PaypalSubTask::run() 1\n");
 	ret = step1();
-	if (!ret) return;
+	if (!ret) 
+	{
+		OutputDebugString("PaypalSubTask::run() open paypal error http no use\n");
+		gGlobal->getAccount()->updateAccountState(m_account, Account_State_Init);
+		return;
+	}
 	OutputDebugString("PaypalSubTask::run() 2\n");
 	ret = step2();
 	if (!ret) return;
