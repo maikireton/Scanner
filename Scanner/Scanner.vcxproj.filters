@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="tool">
+      <UniqueIdentifier>{b10819e4-4b28-419c-a449-22d31cfb2577}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -33,6 +36,39 @@
     <ClInclude Include="Resource.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Http.h">
+      <Filter>tool</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectDefine.h">
+      <Filter>tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Function.h">
+      <Filter>tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Lock.h">
+      <Filter>tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Account.h">
+      <Filter>tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Result.h">
+      <Filter>tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Task.h">
+      <Filter>tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Config.h">
+      <Filter>tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Global.h">
+      <Filter>tool</Filter>
+    </ClInclude>
+    <ClInclude Include="PaypalSubTask.h">
+      <Filter>tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Tasks.h">
+      <Filter>tool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Scanner.cpp">
@@ -43,6 +79,33 @@
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Http.cpp">
+      <Filter>tool</Filter>
+    </ClCompile>
+    <ClCompile Include="Lock.cpp">
+      <Filter>tool</Filter>
+    </ClCompile>
+    <ClCompile Include="Account.cpp">
+      <Filter>tool</Filter>
+    </ClCompile>
+    <ClCompile Include="Result.cpp">
+      <Filter>tool</Filter>
+    </ClCompile>
+    <ClCompile Include="Task.cpp">
+      <Filter>tool</Filter>
+    </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>tool</Filter>
+    </ClCompile>
+    <ClCompile Include="Global.cpp">
+      <Filter>tool</Filter>
+    </ClCompile>
+    <ClCompile Include="PaypalSubTask.cpp">
+      <Filter>tool</Filter>
+    </ClCompile>
+    <ClCompile Include="Tasks.cpp">
+      <Filter>tool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

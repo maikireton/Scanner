@@ -36,8 +36,14 @@
 
 #include <afxsock.h>            // MFC Ì×½Ó×ÖÀ©Õ¹
 
+#include "ObjectDefine.h"
+#include "Function.h"
+#include "Lock.h"
+#include "Global.h"
+#include "Wininet.h"
+#pragma comment(lib,"Wininet.lib")
 
-
+__declspec(selectany) extern Global* gGlobal;
 
 
 

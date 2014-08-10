@@ -99,19 +99,39 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Account.h" />
+    <ClInclude Include="Config.h" />
+    <ClInclude Include="Function.h" />
+    <ClInclude Include="Global.h" />
+    <ClInclude Include="Http.h" />
+    <ClInclude Include="Lock.h" />
+    <ClInclude Include="ObjectDefine.h" />
+    <ClInclude Include="PaypalSubTask.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Result.h" />
     <ClInclude Include="Scanner.h" />
     <ClInclude Include="ScannerDlg.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Task.h" />
+    <ClInclude Include="Tasks.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Account.cpp" />
+    <ClCompile Include="Config.cpp" />
+    <ClCompile Include="Global.cpp" />
+    <ClCompile Include="Http.cpp" />
+    <ClCompile Include="Lock.cpp" />
+    <ClCompile Include="PaypalSubTask.cpp" />
+    <ClCompile Include="Result.cpp" />
     <ClCompile Include="Scanner.cpp" />
     <ClCompile Include="ScannerDlg.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Task.cpp" />
+    <ClCompile Include="Tasks.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scanner.rc" />
@@ -125,4 +145,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="Scanner.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

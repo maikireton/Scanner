@@ -3,6 +3,7 @@
 //
 
 #pragma once
+#include "afxwin.h"
 
 
 // CScannerDlg 对话框
@@ -17,7 +18,7 @@ public:
 
 	protected:
 	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV 支持
-
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 
 // 实现
 protected:
@@ -28,4 +29,12 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+
+public:
+	afx_msg void OnBnClickedButtonStart();
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
+
+public:
+	CButton m_buttonStart;
+	CStatic m_staticInfo;
 };
