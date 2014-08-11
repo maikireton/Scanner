@@ -99,6 +99,8 @@ void Account::saveAccountFile()
 
 void Account::updateAccountState(tagAccount* account, int state)
 {
+	m_lock.Lock();
+
 	if (account->mState == Account_State_Init) --m_nStateInit;
 	if (account->mState == Account_State_Scanning) --m_nStateScanning;
 	if (account->mState == Account_State_Scanned) --m_nStateScanned;
@@ -108,12 +110,21 @@ void Account::updateAccountState(tagAccount* account, int state)
 	if (state == Account_State_Scanned) ++m_nStateScanned;
 
 	account->mState = state;
+
+	m_lock.UnLock();
 }
 
 int Account::getAccountStateNum(int state)
 {
-	if (state == Account_State_Init) return m_nStateInit;
-	else if (state == Account_State_Scanning) return m_nStateScanning;
-	else if (state == Account_State_Scanned) return m_nStateScanned; 
-	else return 0;
+	int num = 0;
+
+	m_lock.Lock();
+
+	if (state == Account_State_Init) num = m_nStateInit;
+	else if (state == Account_State_Scanning) num = m_nStateScanning;
+	else if (state == Account_State_Scanned) num = m_nStateScanned; 
+	
+	m_lock.UnLock();
+
+	return num;
 }
