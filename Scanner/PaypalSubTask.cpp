@@ -11,7 +11,6 @@ PaypalSubTask::PaypalSubTask(tagAccount* account, tagHttp* http)
 	//m_hInternet = InternetOpen("Mozilla/5.0 (Windows NT 5.1) AppleWebKit/535.1 (KHTML, like Gecko) Chrome/15.0.849.0 Safari/535.1", INTERNET_OPEN_TYPE_PRECONFIG, NULL, NULL, 0);
 }
 
-
 PaypalSubTask::~PaypalSubTask(void)
 {
 }
@@ -271,21 +270,21 @@ BOOL PaypalSubTask::step2()
 			gGlobal->getAccount()->updateAccountState(m_account, Account_State_Scanned);
 			CString s;
 			s.Format("wrong\t%s\t%s", m_account->mName, m_account->mPassWord);
-			gGlobal->getResult()->addResult(s);
+			gGlobal->getResult()->addResult(RESULT_WRONG, s);
 		} 
 		else if (security)
 		{
 			gGlobal->getAccount()->updateAccountState(m_account, Account_State_Scanned);
 			CString s;
-			s.Format("secturity\t%s\t%s", m_account->mName, m_account->mPassWord);
-			gGlobal->getResult()->addResult(s);
+			s.Format("security\t%s\t%s", m_account->mName, m_account->mPassWord);
+			gGlobal->getResult()->addResult(RESULT_SECURITY, s);
 		}
 		else if (unknown) 
 		{
 			gGlobal->getAccount()->updateAccountState(m_account, Account_State_Scanned);
 			CString s;
 			s.Format("unknown\t%s\t%s", m_account->mName, m_account->mPassWord);
-			gGlobal->getResult()->addResult(s);
+			gGlobal->getResult()->addResult(RESULT_UNKNOWN, s);
 		}
 	}
 	else
@@ -399,6 +398,6 @@ BOOL PaypalSubTask::step3()
 	}
 	CString s;
 	s.Format("correct\t%s\t%s\t%s\t%s\t%s\t%s", m_account->mName, m_account->mPassWord, m_sMoney, m_sCountry, m_sPerson, m_sVerify);
-	gGlobal->getResult()->addResult(s);
+	gGlobal->getResult()->addResult(RESULT_CORRECT, s);
 	return ret;
 }
