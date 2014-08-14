@@ -23,12 +23,12 @@ void Account::init()
 {
 	OutputDebugString("Account::init\n");
 	m_nPos = 0;
+	m_nStateInit = 0;
+	m_nStateScanning = 0;
+	m_nStateScanned = 0;
 	m_sAccountFilePath = Function::ApplicationPath();
 	m_sAccountFilePath.Append("account.txt");
 	loadAccountFile();
-	m_nStateInit = m_vectorAccount.size();
-	m_nStateScanning = 0;
-	m_nStateScanned = 0;
 }
 
 tagAccount* Account::getNext()
@@ -69,7 +69,7 @@ void Account::loadAccountFile()
 			continue;
 		}
 		tagAccount* temp = new tagAccount();
-		temp->mState = Account_State_Init;
+		updateAccountState(temp, Account_State_Init);
 		sscanf(line.GetBuffer(), "%[^\t]%*c%[^\t]", temp->mName.GetBuffer(256), temp->mPassWord.GetBuffer(256));
 		temp->mName.ReleaseBuffer();
 		temp->mPassWord.ReleaseBuffer();

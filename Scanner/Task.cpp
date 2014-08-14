@@ -17,23 +17,21 @@ DWORD WINAPI fnSubWork(LPVOID pParam)
 {
 	OutputDebugString("fnSubWork start\n");
 	Task* p = (Task*)pParam;
-	tagAccount* account = gGlobal->getAccount()->getNext();
-	tagHttp* http = gGlobal->getHttp()->getNext();
 	do
 	{
-		if (http == NULL)
+		if (p->m_http == NULL)
 		{
 			p->stop();
 			OutputDebugString("fnSubWork http is NULL\n");
 			break;
 		}
-		if (account == NULL)
+		if (p->m_account == NULL)
 		{
 			p->stop();
 			OutputDebugString("fnSubWork account is NULL\n");
 			break;
 		}
-		PaypalSubTask* paypal = new PaypalSubTask(account, http);
+		PaypalSubTask* paypal = new PaypalSubTask(p->m_account, p->m_http);
 		paypal->run();
 		delete paypal;
 	} while (false);
@@ -47,6 +45,7 @@ DWORD WINAPI fnWork(LPVOID pParam)
 	Task* p = (Task*)pParam;
 	HANDLE h = NULL;
 	DWORD begin = 0;
+	
 	while (true)
 	{
 		if (p->isStop())
@@ -54,12 +53,19 @@ DWORD WINAPI fnWork(LPVOID pParam)
 			if (h)
 			{
 				OutputDebugString("fnWork quit kill thread\n");
+				if (p->m_account)
+				{
+					gGlobal->getAccount()->updateAccountState(p->m_account, Account_State_Init);
+				}
+				TerminateThread(h, 1);
 				CloseHandle(h);
 			}
 			break;
 		}
 		if (h == NULL)
 		{
+			p->m_account = gGlobal->getAccount()->getNext();
+			p->m_http = gGlobal->getHttp()->getNext();
 			OutputDebugString("fnWork create thread\n");
 			h = CreateThread(NULL, NULL, fnSubWork, pParam, NULL, NULL);
 			begin = time(NULL);
@@ -69,6 +75,9 @@ DWORD WINAPI fnWork(LPVOID pParam)
 			if (WaitForSingleObject(h, 0) == WAIT_OBJECT_0)
 			{
 				OutputDebugString("fnSubWork quit\n");
+				p->m_account = NULL;
+				p->m_http = NULL;
+				CloseHandle(h);
 				h = NULL;
 			}
 			else 
@@ -76,6 +85,10 @@ DWORD WINAPI fnWork(LPVOID pParam)
 				if (time(NULL)-begin > gGlobal->getConfig()->getTaskInterval())
 				{
 					OutputDebugString("fnWork overtime kill thread\n");
+					gGlobal->getAccount()->updateAccountState(p->m_account, Account_State_Init);
+					p->m_account = NULL;
+					p->m_http = NULL;
+					TerminateThread(h, 1);
 					CloseHandle(h);
 					h = NULL;
 				}
