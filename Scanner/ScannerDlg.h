@@ -37,4 +37,5 @@ public:
 public:
 	CButton m_buttonStart;
 	CStatic m_staticInfo;
+	afx_msg void OnClose();
 };

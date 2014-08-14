@@ -36,6 +36,7 @@ BEGIN_MESSAGE_MAP(CScannerDlg, CDialogEx)
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON_START, &CScannerDlg::OnBnClickedButtonStart)
 	ON_WM_TIMER()
+	ON_WM_CLOSE()
 END_MESSAGE_MAP()
 
 
@@ -153,3 +154,13 @@ BOOL CScannerDlg::PreTranslateMessage(MSG* pMsg)
 
     return CDialogEx::PreTranslateMessage(pMsg);  
 }  
+
+void CScannerDlg::OnClose()
+{
+	if (gGlobal->getState() != Run_State_Free)
+	{
+		AfxMessageBox("«Îœ»Õ£÷π");
+		return;
+	}
+	CDialogEx::OnClose();
+}
