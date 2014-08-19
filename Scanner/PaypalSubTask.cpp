@@ -307,6 +307,14 @@ BOOL PaypalSubTask::step3()
 		sHead += ";";
 		++iter;
 	}
+	//https://www.paypal.com/fr/cgi-bin/webscr?cmd=_login-done&login_access=1408463852
+	//https://www.paypal.com/fr/cgi-bin/webscr?cmd=%5faccount&nav=0
+	if (m_sLocation.Find("cmd=_login-done") != -1)
+	{
+		int pos = m_sLocation.Find("?");
+		m_sLocation = m_sLocation.Left(pos+1);
+		m_sLocation += "cmd=%5faccount&nav=0";
+	}
 	HINTERNET hRequest = InternetOpenUrl(m_hInternet, m_sLocation.GetBuffer(), sHead.GetBuffer(), sHead.GetLength(), INTERNET_FLAG_SECURE|INTERNET_FLAG_NO_COOKIES, 0);
 	if (hRequest)
 	{
@@ -354,6 +362,8 @@ BOOL PaypalSubTask::step3()
 			{
 				sTemp.Append((char*)&vBuffer[0], vBuffer.size());
 			}
+			CStringW utf8 = CA2W(sTemp, CP_UTF8);
+			sTemp = CW2A(utf8);
 			int nPos = sTemp.Find("s.prop7=\"");
 			if (nPos != -1)
 			{
@@ -379,8 +389,9 @@ BOOL PaypalSubTask::step3()
 				nPos += strlen("<!--googleoff: all-->");
 				int nEnd = sTemp.Find("<!--googleon: all-->", nPos);
 				m_sMoney = sTemp.Mid(nPos+1, nEnd-nPos-2);
-				CStringW utf8 = CA2W(m_sMoney, CP_UTF8);
-				m_sMoney = CW2A(utf8);
+				m_sMoney.Replace("&#x2e;", ".");
+				m_sMoney.Replace("&#x20;", " ");
+				m_sMoney.Replace("&#x2c;", ",");
 				nPos = m_sMoney.Find("<strong>");
 				if (nPos != -1)
 				{
