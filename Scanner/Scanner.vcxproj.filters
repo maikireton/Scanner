@@ -63,10 +63,13 @@
     <ClInclude Include="Global.h">
       <Filter>tool</Filter>
     </ClInclude>
-    <ClInclude Include="PaypalSubTask.h">
+    <ClInclude Include="Tasks.h">
       <Filter>tool</Filter>
     </ClInclude>
-    <ClInclude Include="Tasks.h">
+    <ClInclude Include="PaypalSubTask.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="XiCiSubTask.h">
       <Filter>tool</Filter>
     </ClInclude>
   </ItemGroup>
@@ -101,10 +104,13 @@
     <ClCompile Include="Global.cpp">
       <Filter>tool</Filter>
     </ClCompile>
-    <ClCompile Include="PaypalSubTask.cpp">
+    <ClCompile Include="Tasks.cpp">
       <Filter>tool</Filter>
     </ClCompile>
-    <ClCompile Include="Tasks.cpp">
+    <ClCompile Include="PaypalSubTask.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="XiCiSubTask.cpp">
       <Filter>tool</Filter>
     </ClCompile>
   </ItemGroup>

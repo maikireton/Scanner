@@ -66,8 +66,6 @@ void Result::addResult(int type, CString sResult)
 	{
 		file = &m_fileSecurity;
 	}
-	file->WriteString(Function::Now());
-	file->WriteString("\t");
 	file->WriteString(sResult);
 	file->WriteString("\n");
 	file->Flush();

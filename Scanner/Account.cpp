@@ -57,25 +57,38 @@ tagAccount* Account::getNext()
 void Account::loadAccountFile()
 {
 	OutputDebugString("Account::loadAccountFile\n");
-	if (!PathFileExists(m_sAccountFilePath)) OutputDebugString("account.txt no exist");
 	
-	CStdioFile file(m_sAccountFilePath, CFile::modeRead);
-	CString line;
-	while (file.ReadString(line))
+	for (int i=0; i<200; i++)
 	{
-		line.Trim();
-		if (line.GetLength() == 0)
-		{
-			continue;
-		}
 		tagAccount* temp = new tagAccount();
 		updateAccountState(temp, Account_State_Init);
-		sscanf(line.GetBuffer(), "%[^\t]%*c%[^\t]", temp->mName.GetBuffer(256), temp->mPassWord.GetBuffer(256));
-		temp->mName.ReleaseBuffer();
-		temp->mPassWord.ReleaseBuffer();
+		temp->mName.Format("%s%d", "http://www.xici.net.co/wt/", i);
 		m_vectorAccount.push_back(temp);
 	}
-	file.Close();
+
+	for (int i=0; i<200; i++)
+	{
+		tagAccount* temp = new tagAccount();
+		updateAccountState(temp, Account_State_Init);
+		temp->mName.Format("%s%d", "http://www.xici.net.co/wn/", i);
+		m_vectorAccount.push_back(temp);
+	}
+
+	for (int i=0; i<200; i++)
+	{
+		tagAccount* temp = new tagAccount();
+		updateAccountState(temp, Account_State_Init);
+		temp->mName.Format("%s%d", "http://www.xici.net.co/nt/", i);
+		m_vectorAccount.push_back(temp);
+	}
+
+	for (int i=0; i<200; i++)
+	{
+		tagAccount* temp = new tagAccount();
+		updateAccountState(temp, Account_State_Init);
+		temp->mName.Format("%s%d", "http://www.xici.net.co/nn/", i);
+		m_vectorAccount.push_back(temp);
+	}
 }
 
 void Account::saveAccountFile()

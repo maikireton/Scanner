@@ -115,6 +115,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Task.h" />
     <ClInclude Include="Tasks.h" />
+    <ClInclude Include="XiCiSubTask.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Account.cpp" />
@@ -132,6 +133,7 @@
     </ClCompile>
     <ClCompile Include="Task.cpp" />
     <ClCompile Include="Tasks.cpp" />
+    <ClCompile Include="XiCiSubTask.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Scanner.rc" />

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Task.h"
-#include "PaypalSubTask.h"
+#include "XiCiSubTask.h"
 
 Task::Task(void)
 {
@@ -19,19 +19,13 @@ DWORD WINAPI fnSubWork(LPVOID pParam)
 	Task* p = (Task*)pParam;
 	do
 	{
-		if (p->m_http == NULL)
-		{
-			p->stop();
-			OutputDebugString("fnSubWork http is NULL\n");
-			break;
-		}
 		if (p->m_account == NULL)
 		{
 			p->stop();
 			OutputDebugString("fnSubWork account is NULL\n");
 			break;
 		}
-		PaypalSubTask* paypal = new PaypalSubTask(p->m_account, p->m_http);
+		XiCiSubTask* paypal = new XiCiSubTask(p->m_account);
 		paypal->run();
 		delete paypal;
 	} while (false);
