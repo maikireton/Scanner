@@ -57,8 +57,6 @@ DWORD WINAPI fnWork(LPVOID pParam)
 				{
 					gGlobal->getAccount()->updateAccountState(p->m_account, Account_State_Init);
 				}
-				TerminateThread(h, 1);
-				CloseHandle(h);
 			}
 			break;
 		}
@@ -88,8 +86,6 @@ DWORD WINAPI fnWork(LPVOID pParam)
 					gGlobal->getAccount()->updateAccountState(p->m_account, Account_State_Init);
 					p->m_account = NULL;
 					p->m_http = NULL;
-					TerminateThread(h, 1);
-					CloseHandle(h);
 					h = NULL;
 				}
 			}
